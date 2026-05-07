@@ -12,110 +12,116 @@
 <nav class="navbar navbar-dark py-3">
     <div class="container">
         <span class="navbar-brand fw-bold">GLOBAL RETAIL ANALYTICS</span>
-        <span class="text-white-50 small">Minería de Datos - Facultad de Ingeniería</span>
+        <span class="text-white-50 small">Minería de Datos</span>
     </div>
 </nav>
 
-<div class="hero-section">
-    <div class="container text-center">
+<div class="hero-section text-center">
+    <div class="container">
         <h1 class="display-4 fw-bold">Segmentación Estratégica de Clientes</h1>
-        <p class="lead">Implementación del modelo K-Means para la optimización de rentabilidad en Superstore</p>
+        <p class="lead">Implementación del algoritmo K-Means para optimizar la rentabilidad en Superstore</p>
     </div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-4">
-            <h4 class="section-title">Contexto</h4>
-            <h4 class="section-title mt-4">Fundamentos del Algoritmo y Selección de K</h4>
-    <div class="row mb-4">
+    
+    <h4 class="section-title">1. Contexto y Problemática</h4>
+    <div class="row mb-5">
         <div class="col-md-6">
-            <div class="card p-4 h-100">
+            <div class="card p-4 h-100 shadow-sm">
+                <h6 class="fw-bold text-primary">El Problema de Negocio</h6>
+                <p class="text-muted small">El objetivo es identificar ineficiencias en los descuentos aplicados y detectar segmentos de alta rentabilidad que se ocultan dentro del volumen total de <strong>{{ total }} registros</strong> del dataset.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-4 h-100 shadow-sm">
+                <h6 class="fw-bold text-primary">Variables de Agrupación (Estandarizadas)</h6>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    <span class="badge bg-secondary">Ventas (Sales)</span>
+                    <span class="badge bg-secondary">Ganancia (Profit)</span>
+                    <span class="badge bg-secondary">Cantidad (Quantity)</span>
+                    <span class="badge bg-secondary">Descuento (Discount)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-title">2. Fundamentos del Algoritmo y Selección de K</h4>
+    <div class="row mb-5">
+        <div class="col-md-5">
+            <div class="card p-4 h-100 shadow-sm">
                 <h6 class="fw-bold text-primary">Conceptos Principales de K-Means</h6>
-                <p class="small text-muted mb-2">K-Means es un algoritmo de aprendizaje no supervisado que agrupa datos similares. Funciona de manera iterativa:</p>
+                <p class="small text-muted mb-2">Algoritmo de aprendizaje no supervisado iterativo que incluye:</p>
                 <ul class="small text-muted">
-                    <li><strong>Centroides:</strong> Puntos centrales de cada grupo. El algoritmo busca el centroide que minimice la distancia con los datos de su grupo.</li>
-                    <li><strong>Inercia (WCSS):</strong> Mide qué tan compactos son los clústeres. Menor inercia significa grupos más ajustados.</li>
-                    <li><strong>Distancia Euclidiana:</strong> Métrica utilizada para asignar cada venta al segmento más cercano.</li>
+                    <li><strong>Centroides:</strong> Puntos centrales de cada grupo.</li>
+                    <li><strong>Inercia (WCSS):</strong> Mide qué tan compactos son los clústeres.</li>
+                    <li><strong>Distancia Euclidiana:</strong> Métrica para asignar cada venta al segmento más cercano.</li>
                 </ul>
                 <h6 class="fw-bold text-primary mt-3">Ejecución del Modelo</h6>
-                <p class="small text-muted mb-0">Se estandarizaron las variables con <em>StandardScaler</em> (Z-score) para evitar sesgos de magnitud. Se inicializó con <em>K-Means++</em> para garantizar una convergencia óptima.</p>
+                <p class="small text-muted mb-0">Estandarización previa con <em>StandardScaler</em> (Z-score). Inicialización con <em>K-Means++</em> para garantizar una convergencia óptima sin caer en mínimos locales.</p>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card p-4 h-100 text-center">
+        <div class="col-md-7">
+            <div class="card p-4 h-100 shadow-sm text-center">
                 <h6 class="fw-bold text-primary text-start">Justificación: Gráfica del Método del Codo</h6>
-                <img src="{{ url_for('static', filename='images/metodo_codo.png') }}" class="img-fluid my-auto" alt="Método del Codo">
-                <p class="small text-muted mt-2 mb-0">Se observa la mayor caída relativa de inercia en <strong>K=4 (-26.1%)</strong>, formando el punto de inflexión ("codo").</p>
-            </div>
-        </div>
-    </div>
-            <div class="card p-4">
-                <h6 class="fw-bold text-primary">Problemática</h6>
-                <p class="small text-muted">Identificar ineficiencias en descuentos y detectar segmentos de alta rentabilidad que se pierden en el volumen total de {{ total }} registros.</p>
-                <hr>
-                <h6 class="fw-bold text-primary">Variables de Agrupación</h6>
-                <div class="d-flex flex-wrap gap-2">
-                    <span class="badge bg-light text-dark border">Ventas</span>
-                    <span class="badge bg-light text-dark border">Ganancia</span>
-                    <span class="badge bg-light text-dark border">Cantidad</span>
-                    <span class="badge bg-light text-dark border">Descuento</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-8">
-            <h4 class="section-title">Visualización del Modelo</h4>
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="card p-3">
-                        <img src="{{ url_for('static', filename='images/pca_clusters.png') }}" class="img-fluid" alt="PCA">
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card p-3">
-                        <img src="{{ url_for('static', filename='images/heatmap.png') }}" class="img-fluid" alt="Heatmap">
-                    </div>
-                </div>
+                <img src="{{ url_for('static', filename='images/metodo_codo.png') }}" class="img-fluid rounded mx-auto d-block mt-2" style="max-height: 260px; object-fit: contain;" alt="Método del Codo">
+                <p class="small text-muted mt-3 mb-0">La mayor caída relativa de inercia ocurre en <strong>K=4 (-26.1%)</strong>, formando el punto de inflexión ("codo").</p>
             </div>
         </div>
     </div>
 
-    <h4 class="section-title mt-4">Arquetipos Identificados (K=4)</h4>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card p-3 border-start border-4 border-primary">
+    <h4 class="section-title">3. Visualización del Modelo</h4>
+    <div class="row mb-5">
+        <div class="col-md-7">
+            <div class="card p-4 shadow-sm text-center h-100">
+                <h6 class="fw-bold text-primary mb-3 text-start">Distribución de Clústeres y Centroides (PCA 2D)</h6>
+                <img src="{{ url_for('static', filename='images/pca_clusters.png') }}" class="img-fluid rounded mx-auto d-block" style="max-height: 350px; object-fit: contain;" alt="PCA">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card p-4 shadow-sm text-center h-100">
+                <h6 class="fw-bold text-primary mb-3 text-start">Impacto de Variables (Z-Score)</h6>
+                <img src="{{ url_for('static', filename='images/heatmap.png') }}" class="img-fluid rounded mx-auto d-block" style="max-height: 350px; object-fit: contain;" alt="Heatmap">
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-title">4. Interpretación de Resultados</h4>
+    <div class="row mb-5">
+        <div class="col-md-3 mb-3">
+            <div class="card p-3 h-100 shadow-sm border-0 border-start border-4 border-primary">
                 <h6 class="fw-bold">Clúster 0</h6>
-                <p class="small">Clientes de volumen medio y alta fidelidad.</p>
+                <p class="small text-muted mb-0">Clientes de volumen medio y alta fidelidad.</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card p-3 border-start border-4 border-warning">
+        <div class="col-md-3 mb-3">
+            <div class="card p-3 h-100 shadow-sm border-0 border-start border-4 border-warning">
                 <h6 class="fw-bold">Clúster 1</h6>
-                <p class="small">Segmento Crítico: Pérdida por descuento excesivo.</p>
+                <p class="small text-muted mb-0">Segmento Crítico: Pérdida por descuento excesivo.</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card p-3 border-start border-4 border-success">
+        <div class="col-md-3 mb-3">
+            <div class="card p-3 h-100 shadow-sm border-0 border-start border-4 border-success">
                 <h6 class="fw-bold">Clúster 2</h6>
-                <p class="small">Cuentas Corporativas: Alto Valor Estratégico.</p>
+                <p class="small text-muted mb-0">Cuentas Corporativas: Alto Valor Estratégico.</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card p-3 border-start border-4 border-danger">
+        <div class="col-md-3 mb-3">
+            <div class="card p-3 h-100 shadow-sm border-0 border-start border-4 border-danger">
                 <h6 class="fw-bold">Clúster 3</h6>
-                <p class="small">Transacciones Base: Bajo margen, alto volumen.</p>
+                <p class="small text-muted mb-0">Transacciones Base: Bajo margen, alto volumen.</p>
             </div>
         </div>
     </div>
 
-    <h4 class="section-title mt-4">Análisis de Datos Asignados</h4>
-    <div class="card">
+    <h4 class="section-title">5. Muestra de Datos Procesados</h4>
+    <div class="card shadow-sm border-0 mb-5">
         <div class="table-responsive">
-            <table class="table align-middle mb-0">
-                <thead>
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
                     <tr>
                         <th>Order ID</th>
+                        <th>Categoría</th>
                         <th>Ventas</th>
                         <th>Profit</th>
                         <th>Qty</th>
@@ -126,25 +132,25 @@
                 <tbody>
                     {% for fila in filas %}
                     <tr>
-                        <td><span class="fw-bold">{{ fila[0] }}</span></td>
+                        <td class="fw-bold text-secondary">{{ fila[0] }}</td>
+                        <td>{{ fila[1] }}</td>
                         <td>${{ fila[2] }}</td>
-                        <td class="{% if fila[3] < 0 %}text-danger{% else %}text-success{% endif %}">
+                        <td class="{% if fila[3] < 0 %}text-danger fw-bold{% else %}text-success{% endif %}">
                             {{ fila[3] }}
                         </td>
                         <td>{{ fila[4] }}</td>
                         <td>{{ fila[5] }}</td>
-                        <td>
-                            <span class="badge bg-dark">Clúster {{ fila[6] }}</span>
-                        </td>
+                        <td><span class="badge bg-dark rounded-pill">Clúster {{ fila[6] }}</span></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
 </div>
 
-<footer class="text-center py-5 text-muted">
+<footer class="bg-dark text-white text-center py-4 mt-auto">
     <small>Sistema de Minería de Datos - 2026</small>
 </footer>
 
