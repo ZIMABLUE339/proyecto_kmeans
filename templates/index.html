@@ -140,7 +140,17 @@
                         </td>
                         <td>{{ fila[4] }}</td>
                         <td>{{ fila[5] }}</td>
-                        <td><span class="badge bg-dark rounded-pill">Clúster {{ fila[6] }}</span></td>
+                          <td>
+                            {% if fila[6] == 0 %}
+                                <span class="badge rounded-pill" style="background-color: #2E75B6; color: white;">Clúster 0</span>
+                            {% elif fila[6] == 1 %}
+                                <span class="badge rounded-pill" style="background-color: #ED7D31; color: white;">Clúster 1</span>
+                            {% elif fila[6] == 2 %}
+                                <span class="badge rounded-pill" style="background-color: #70AD47; color: white;">Clúster 2</span>
+                            {% elif fila[6] == 3 %}
+                                <span class="badge rounded-pill" style="background-color: #D9534F; color: white;">Clúster 3</span>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
