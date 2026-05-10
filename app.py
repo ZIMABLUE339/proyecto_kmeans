@@ -1,6 +1,6 @@
 import os
 import matplotlib
-matplotlib.use('Agg')  # Necesario para correr en servidores web
+matplotlib.use('Agg') 
 from flask import Flask, render_template
 import pandas as pd
 import numpy as np
@@ -12,11 +12,11 @@ from sklearn.decomposition import PCA
 
 app = Flask(__name__)
 
-# Asegurar que las carpetas existan
+
 os.makedirs('static/images', exist_ok=True)
 
 def ejecutar_modelo_kmeans():
-    # 1. Carga y Limpieza (Fase 3 del informe)
+    # 1. Carga y Limpieza 
     df = pd.read_csv('data/Sample_Superstore_Cleaned_UTF8.csv')
     df = df.drop_duplicates()
     df = df.dropna(subset=['Sales', 'Profit', 'Quantity', 'Discount'])
@@ -36,7 +36,7 @@ def ejecutar_modelo_kmeans():
     kmeans = KMeans(n_clusters=4, init='k-means++', n_init=10, max_iter=300, random_state=42)
     df['Cluster'] = kmeans.fit_predict(X_scaled)
     
-    # 4. Generación de Gráficas Profesionales
+
     if not os.path.exists('static/images/metodo_codo.png'):
         inercias = []
         rango_k = range(1, 11)
@@ -56,7 +56,7 @@ def ejecutar_modelo_kmeans():
         plt.tight_layout()
         plt.savefig('static/images/metodo_codo.png', dpi=150)
         plt.close()
-    # --- PCA 2D Visualization ---
+
     pca = PCA(n_components=2, random_state=42)
     X_pca = pca.fit_transform(X_scaled)
     
